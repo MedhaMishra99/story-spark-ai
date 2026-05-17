@@ -1,4 +1,4 @@
-import { useGetFeaturedListsQuery } from "../../../redux/apis/post.api";
+import { useGetLatestListsQuery } from "../../../redux/apis/post.api";
 import { Post } from "../../../models/post";
 import LoadingAnimation from "../../loading/loading.component";
 import SSProfile from "../../ui-component/ss-profile/ss-profile";
@@ -6,13 +6,13 @@ import SSProfile from "../../ui-component/ss-profile/ss-profile";
 /*
  * Community Spotlight Section
  * ----------------------------
- * Displays top featured stories with author info, genre tags, and view count.
- * This section is purely presentational and uses the existing getFeaturedLists
- * API endpoint. No new backend changes are required.
+ * Displays recent top stories with author info, genre tags, and view count.
+ * Uses the existing getLatestLists API endpoint.
+ * No new backend changes are required.
  */
 
 const CommunitySpotlightComponent = () => {
-  const { data, isLoading } = useGetFeaturedListsQuery(undefined);
+  const { data, isLoading } = useGetLatestListsQuery(undefined);
 
   if (isLoading) {
     return <LoadingAnimation />;
