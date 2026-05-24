@@ -19,25 +19,19 @@ const INITIAL_FORM_DATA: FormData = {
 };
 
 const SERVICE_KEY = import.meta.env.VITE_SERVICE_KEY ?? "";
-
 const TEMPLATE_KEY = import.meta.env.VITE_TEMPLATE_KEY ?? "";
-
 const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY ?? "";
 
 export default function Contact() {
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
-
   const [error, setError] = useState<string>("");
-
   const [success, setSuccess] = useState<boolean>(false);
-
   const [loading, setLoading] = useState<boolean>(false);
 
   const changeHandler = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ): void => {
     const fieldName = e.target.name as FormField;
-
     const value = e.target.value;
 
     setFormData((prev) => ({
@@ -64,10 +58,9 @@ export default function Contact() {
       return false;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     if (!emailRegex.test(trimmedData.email)) {
-      setError("Invalid email address.");
+      setError("Please enter a valid email address.");
       return false;
     }
 
@@ -78,15 +71,18 @@ export default function Contact() {
     e: FormEvent<HTMLFormElement>,
   ): Promise<void> => {
     e.preventDefault();
-
     if (loading) return;
 
     setError("");
     setSuccess(false);
 
     const isValid = validateForm();
-
     if (!isValid) return;
+
+    if (!SERVICE_KEY || !TEMPLATE_KEY || !PUBLIC_KEY) {
+      setError("Email service is currently unavailable. Please try again later.");
+      return;
+    }
 
     setLoading(true);
 
@@ -104,12 +100,10 @@ export default function Contact() {
       );
 
       setSuccess(true);
-
       setFormData(INITIAL_FORM_DATA);
     } catch (err: unknown) {
       console.error("EmailJS Error:", err);
-
-      setError("✕ Failed to send message. Please try again later.");
+      setError("✕ Failed to send message. Please check your connection.");
     } finally {
       setLoading(false);
     }
@@ -140,8 +134,10 @@ export default function Contact() {
           <div className="w-24 h-1 bg-yellow-400 mx-auto mt-5 rounded-full" />
         </div>
 
-        {/* Form Card */}
-        <div className="w-full flex justify-center">
+        {/* Form Container */}
+        <div className="w-full max-w-lg group relative">
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-[1.5rem] blur opacity-10 group-hover:opacity-15 transition duration-1000"></div>
+
           <form
             onSubmit={submitHandler}
             className="
@@ -289,7 +285,24 @@ export default function Contact() {
               disabled:cursor-not-allowed
             "
             >
-              {loading ? "Sending..." : "Send Message"}
+              <span className="relative z-10 flex items-center justify-center gap-2">
+                {loading ? (
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : (
+                  <>
+                    Send Message
+                    <svg
+                      className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </>
+                )}
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
             </button>
 
             {/* Success */}

@@ -78,7 +78,7 @@ const HeroSectionComponent = () => {
 
       <div className="relative overflow-hidden" onMouseMove={handleMouseMove}>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-20 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700/50 backdrop-blur-md mb-8 shadow-sm cursor-pointer hover:bg-slate-700/50 transition-colors">
+          <div className="motion-card-subtle inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700/50 backdrop-blur-md mb-8 shadow-sm cursor-pointer hover:bg-slate-700/50 hover:border-blue-400/30">
             <span className="flex h-2.5 w-2.5 rounded-full bg-blue-400 animate-pulse"></span>
             <span className="text-sm font-semibold text-slate-300 tracking-wide">StorySparkAI v2.0 is live</span>
           </div>
@@ -97,15 +97,15 @@ const HeroSectionComponent = () => {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link to="/stories" className="w-full sm:w-auto">
-              <button className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-lg transition-all duration-300 shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_30px_rgba(37,99,235,0.5)] active:scale-95 flex items-center justify-center gap-2 group">
+              <button className="motion-cta w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-lg shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_34px_rgba(37,99,235,0.52)] flex items-center justify-center gap-2 group">
                 Start Writing for Free
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg className="motion-icon w-5 h-5 group-hover:translate-x-1 group-hover:rotate-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </button>
             </Link>
             <Link to="/explore" className="w-full sm:w-auto">
-              <button className="w-full sm:w-auto px-8 py-4 bg-slate-800/60 backdrop-blur-md border border-slate-700/50 hover:bg-slate-700/60 text-slate-200 rounded-xl font-bold text-lg transition-all duration-300 active:scale-95 flex items-center justify-center gap-2">
+              <button className="motion-cta w-full sm:w-auto px-8 py-4 bg-slate-800/60 backdrop-blur-md border border-slate-700/50 hover:bg-slate-700/60 hover:border-blue-400/30 text-slate-200 rounded-xl font-bold text-lg flex items-center justify-center gap-2 hover:shadow-[0_0_24px_rgba(59,130,246,0.14)]">
                 Explore Stories
               </button>
             </Link>
