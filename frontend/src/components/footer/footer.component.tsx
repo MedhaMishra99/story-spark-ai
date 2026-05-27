@@ -56,6 +56,7 @@ const FooterComponent = () => {
     { label: "Report Bug",   to: import.meta.env.VITE_GITHUB_REPO_ISSUES_URL },
   ];
 
+
   const legalLinks = [
     { label: "Privacy", to: "/privacy-policy" },
     { label: "Terms", to: "/terms" },
@@ -68,6 +69,8 @@ const FooterComponent = () => {
     { icon: "fa-twitter", url: "https://x.com/" },
     { icon: "fa-facebook", url: "https://www.facebook.com/" },
   ];
+
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="relative w-full bg-gradient-to-b from-[#090F24] via-[#080E22] to-[#060A18] overflow-hidden">
@@ -244,23 +247,25 @@ const FooterComponent = () => {
 
         <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[12px] text-slate-400/80">
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-2.5 gap-y-1">
-            <span>&copy; 2025 StorySparkAI. All rights reserved.</span>
+            <span className="text-slate-400/80">&copy; {currentYear} StorySparkAI. All rights reserved.</span>
             <span className="hidden sm:inline text-white/[0.12]">|</span>
             <span className="italic text-slate-400/60">Crafted for storytellers</span>
           </div>
           <div className="flex items-center gap-2.5">
-            {(["Privacy", "Terms", "Cookies"] as const).map((item, i, arr) => (
-              <span key={item} className="flex items-center gap-2.5">
-                <Link
-                  to={item === "Privacy" ? "/privacy-policy" : item === "Terms" ? "/terms" : "/cookies"}
-                  className="text-slate-400/80 transition-colors duration-200 hover:text-blue-300"
-                >
-                  {item}
-                </Link>
-                {i < arr.length - 1 && <span className="text-white/[0.12]">|</span>}
-              </span>
-            ))}
+            {legalLinks
+              .filter((link) => link.label !== "Report a Bug")
+              .map(({ label, to }, i, filteredArray) => (
+                <span key={to} className="flex items-center gap-2">
+                  <Link to={to} className="text-slate-400/80 hover:text-blue-300">
+                    {label}
+                  </Link>
+                  {i < filteredArray.length - 1 && (
+                    <span className="text-white/[0.12]">|</span>
+                  )}
+                </span>
+              ))}
           </div>
+
         </div>
 
       </div>
